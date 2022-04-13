@@ -15,13 +15,13 @@ interface IThingService {
 
     fun findAllSize(): List<BrandCategorySizeDto>
 
-    fun findAllThingsByCategory(category: String): List<ThingDto>
+    fun findAllThingsByCategory(category: String?): List<ThingDto>
 
-    fun findAllThingsByBrand(brand: String): List<ThingDto>
+    fun findAllThingsByBrand(brand: String?): List<ThingDto>
 
-    fun findAllThingsBySize(size: String): List<ThingDto>
+    fun findAllThingsBySize(size: String?): List<ThingDto>
 
     fun findAllThingsByMiddlePrice(low: Long, high: Long): List<ThingDto>
 
-    fun deleteById(id: Long): Int
+    fun deleteById(id: Long?): Int
 }

@@ -68,9 +68,9 @@ class ThingServiceGrpc(private val service: IThingService) : ThingServiseGrpc.Th
     ) {
         try {
             val listResult = when (request?.name) {
-                "brand" -> service.findAllThingsByBrand(request.value)
-                "category" -> service.findAllThingsByCategory(request.value)
-                "size" -> service.findAllThingsBySize(request.value)
+                "brand" -> service.findAllThingsByBrand(if (request.hasValue()) request.value.value else null)
+                "category" -> service.findAllThingsByCategory(if (request.hasValue()) request.value.value else null)
+                "size" -> service.findAllThingsBySize(if (request.hasValue()) request.value.value else null)
                 else -> throw IllegalArgumentException("So argument doest not exist: ${request?.name}")
             }
             val response = ThingMapperGrpc.thingDtoGrpcMapperOk(listResult)
@@ -83,17 +83,17 @@ class ThingServiceGrpc(private val service: IThingService) : ThingServiseGrpc.Th
     }
 
     override fun deleteThingById(
-        request: ThingOuterClass.Thing?,
-        responseObserver: StreamObserver<ThingResponse>?
+        request: ThingOuterClass.Thing,
+        responseObserver: StreamObserver<ThingResponse>
     ) {
         try {
-            val result = request?.id?.let { service.deleteById(it) }
+            val result = service.deleteById(if (request.hasId()) request.id.value else null)
             val response = ThingMapperGrpc.thingActionMapperOk(result)
-            responseObserver?.onNext(response)
+            responseObserver.onNext(response)
         } catch (e: Exception) {
             val responseException = ThingMapperGrpc.thingDtoGrpcMapperError(e)
-            responseObserver?.onNext(responseException)
+            responseObserver.onNext(responseException)
         }
-        responseObserver?.onCompleted()
+        responseObserver.onCompleted()
     }
 }

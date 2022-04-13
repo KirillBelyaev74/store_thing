@@ -39,15 +39,24 @@ class ThingService: IThingService {
         return repository.findAllSize()
     }
 
-    override fun findAllThingsByCategory(category: String): List<ThingDto> {
+    override fun findAllThingsByCategory(category: String?): List<ThingDto> {
+        if (category.isNullOrBlank()) {
+            throw IllegalArgumentException("Parameter category: [$category] is null or blank")
+        }
         return repository.findAllThingsByCategory(category)
     }
 
-    override fun findAllThingsByBrand(brand: String): List<ThingDto> {
+    override fun findAllThingsByBrand(brand: String?): List<ThingDto> {
+        if (brand.isNullOrBlank()) {
+            throw IllegalArgumentException("Parameter category: [$brand] is null or blank")
+        }
         return repository.findAllThingsByBrand(brand)
     }
 
-    override fun findAllThingsBySize(size: String): List<ThingDto> {
+    override fun findAllThingsBySize(size: String?): List<ThingDto> {
+        if (size.isNullOrBlank()) {
+            throw IllegalArgumentException("Parameter category: [$size] is null or blank")
+        }
         return repository.findAllThingsBySize(size)
     }
 
@@ -55,10 +64,14 @@ class ThingService: IThingService {
         return repository.findAllThingsByMiddlePrice(low, high)
     }
 
-    override fun deleteById(id: Long): Int {
-        if (id < 1) {
+    override fun deleteById(id: Long?): Int {
+        if (id == null || id < 1) {
             throw IllegalArgumentException("Not correct this id: $id")
         }
         return repository.deleteById(id)
+    }
+
+    fun checkParameter(value: String?) {
+
     }
 }
