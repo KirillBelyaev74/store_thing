@@ -29,12 +29,12 @@ object ThingMapperGrpc {
     fun thingDtoGrpcMapperOk(list: List<ThingDto>): ThingResponse {
         val things = list.map {
             Thing.newBuilder().apply {
-                id = it.id?.let { Int64Value.of(it) }
-                brand = it.brand?.let { StringValue.of(it) }
-                category = it.category?.let { StringValue.of(it) }
-                size = it.size?.let { StringValue.of(it) }
-                price = it.price?.let { Int64Value.of(it) }
-                description = it.description?.let { StringValue.of(it) }
+                it.id?.let { id = Int64Value.of(it) }
+                it.brand?.let { brand = StringValue.of(it) }
+                it.category?.let { category = StringValue.of(it) }
+                it.size?.let { size = StringValue.of(it) }
+                it.price?.let { price = Int64Value.of(it) }
+                it.description?.let { description = StringValue.of(it) }
             }.build()
         }
 
@@ -49,8 +49,8 @@ object ThingMapperGrpc {
     fun brandCategorySizeDtoGrpcMapperOk(list: List<BrandCategorySizeDto>): BrandCategorySizeResponse {
         val results = list.map {
             BrandCategorySize.newBuilder().apply {
-                id = Int64Value.of(id.value)
-                brandCategorySize = StringValue.of(it.brandCategorySize)
+                id = Int64Value.of(it.id)
+                it.brandCategorySize?.let { brandCategorySize = StringValue.of(it) }
             }.build()
         }
 

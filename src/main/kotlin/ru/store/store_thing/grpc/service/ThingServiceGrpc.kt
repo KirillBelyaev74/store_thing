@@ -47,7 +47,7 @@ class ThingServiceGrpc(private val service: IThingService) : ThingServiseGrpc.Th
         responseObserver: StreamObserver<ThingOuterClass.BrandCategorySizeResponse>?
     ) {
         try {
-            val listResult = when (request?.name) {
+            val listResult = when (request?.name?.value) {
                 "brand" -> service.findAllBrand()
                 "category" -> service.findAllCategory()
                 "size" -> service.findAllSize()
@@ -67,7 +67,7 @@ class ThingServiceGrpc(private val service: IThingService) : ThingServiseGrpc.Th
         responseObserver: StreamObserver<ThingResponse>?
     ) {
         try {
-            val listResult = when (request?.name) {
+            val listResult = when (request?.name?.value) {
                 "brand" -> service.findAllThingsByBrand(if (request.hasValue()) request.value.value else null)
                 "category" -> service.findAllThingsByCategory(if (request.hasValue()) request.value.value else null)
                 "size" -> service.findAllThingsBySize(if (request.hasValue()) request.value.value else null)
