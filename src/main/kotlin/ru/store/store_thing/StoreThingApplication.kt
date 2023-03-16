@@ -2,6 +2,7 @@ package ru.store.store_thing
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import ru.store.store_thing.model.ThingDto
 
 @SpringBootApplication
 open class StoreThingApplication

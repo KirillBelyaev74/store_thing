@@ -77,6 +77,12 @@
 			<version>2.13.1.RELEASE</version>
 		</dependency>
 
+		<dependency>
+			<groupId>ru.logging</groupId>
+			<artifactId>logging_to_kafka</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

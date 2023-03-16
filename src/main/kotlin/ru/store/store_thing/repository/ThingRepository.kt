@@ -6,6 +6,7 @@ import org.springframework.context.annotation.PropertySource
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 import org.springframework.stereotype.Repository
+import ru.logging.annotation.Log
 import ru.store.store_thing.capitalizeWords
 import ru.store.store_thing.mapper.ThingBrandCategorySizeMapper
 import ru.store.store_thing.mapper.ThingMapper
@@ -50,6 +51,7 @@ open class ThingRepository : IThingRepository {
     @Value("\${find.all.by.middle.price}")
     private lateinit var selectByMiddlePrice: String
 
+    @Log
     override fun save(thing: ThingDto): Int {
         val listCategory = thing.category?.let { findAllThingsByCategory(it) } ?: listOf()
         val listBrand = thing.brand?.let { findAllThingsByBrand(it) } ?: listOf()
@@ -74,38 +76,47 @@ open class ThingRepository : IThingRepository {
                 .addValue("price", thing.price))
     }
 
+    @Log
     override fun findAllThings(): List<ThingDto> {
         return jdbcTemplate.query(selectFindAll, ThingMapper())
     }
 
+    @Log
     override fun findAllCategory(): List<BrandCategorySizeDto> {
         return jdbcTemplate.query(selectFindAllCategory, ThingBrandCategorySizeMapper("category"))
     }
 
+    @Log
     override fun findAllBrand(): List<BrandCategorySizeDto> {
         return jdbcTemplate.query(selectFindAllBrand, ThingBrandCategorySizeMapper("brand"))
     }
 
+    @Log
     override fun findAllSize(): List<BrandCategorySizeDto> {
         return jdbcTemplate.query(selectFindAllSize, ThingBrandCategorySizeMapper("size"))
     }
 
+    @Log
     override fun findAllThingsByCategory(category: String): List<ThingDto> {
         return jdbcTemplate.query(selectFindAllByCategory, mapOf("category" to category.capitalizeWords()), ThingMapper())
     }
 
+    @Log
     override fun findAllThingsByBrand(brand: String): List<ThingDto> {
         return jdbcTemplate.query(selectFindByBrand, mapOf("brand" to brand.capitalizeWords()), ThingMapper())
     }
 
+    @Log
     override fun findAllThingsBySize(size: String): List<ThingDto> {
         return jdbcTemplate.query(selectFindBySize, mapOf("size" to size.capitalizeWords()), ThingMapper())
     }
 
+    @Log
     override fun findAllThingsByMiddlePrice(low: Long, high: Long): List<ThingDto> {
         return jdbcTemplate.query(selectByMiddlePrice, mapOf("low" to low, "high" to high), ThingMapper())
     }
 
+    @Log
     override fun deleteById(id: Long): Int {
         return jdbcTemplate.update(deleteById, mapOf("id" to id))
     }

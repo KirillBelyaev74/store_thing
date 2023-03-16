@@ -10,7 +10,7 @@ import ru.store.store_thing.grpc.mapper.ThingMapperGrpc
 import ru.store.store_thing.service.IThingService
 
 @GrpcService
-class ThingServiceGrpc(private val service: IThingService) : ThingServiseGrpc.ThingServiseImplBase() {
+open class ThingServiceGrpc(private val service: IThingService) : ThingServiseGrpc.ThingServiseImplBase() {
 
     override fun saveThing(
         request: ThingOuterClass.Thing?,
