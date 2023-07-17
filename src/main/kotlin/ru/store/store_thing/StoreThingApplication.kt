@@ -12,3 +12,6 @@ fun main(args: Array<String>) {
 }
 
 fun String.capitalizeWords(): String = split(" ").joinToString(" ") { it.capitalize() }
+
+typealias Low = Long
+typealias High = Long
