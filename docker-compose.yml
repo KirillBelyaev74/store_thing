@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+
+  postgres:
+    build:
+      context: .
+      dockerfile: Dockerfile.postgres
+    restart: always
+    image: "postgres"
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_DB=store
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=7508
+    volumes:
+      - ./src/main/resources/database/create.sql:/docker-entrypoint-initdb.d/create.sql
+      - ./src/main/resources/database/insert.sql:/docker-entrypoint-initdb.d/insert.sql
+
+  store_thing:
+    build:
+      context: .
+      dockerfile: Dockerfile.store_thing
+    image: 'store_thing'
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      - SERVER_PORT=8081
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres/store
+      - SPRING_H2_CONSOLE_ENABLED=TRUE
+      - SPRING_JPA_SHOW_SQL=TRUE
+    depends_on:
+      - postgres
+    links:
+      - postgres:postgres

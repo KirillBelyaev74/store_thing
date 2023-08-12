@@ -1,0 +1,4 @@
+FROM eclipse-temurin:17-jdk-alpine
+ARG JAR_FILE=target/store_thing-1.0.0.jar
+COPY ${JAR_FILE} store_thing.jar
+ENTRYPOINT ["java","-jar","store_thing.jar","-Dspring.config.location=classpath:application.properties"]
