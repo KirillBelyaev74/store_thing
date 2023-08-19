@@ -25,11 +25,6 @@ services:
     restart: always
     ports:
       - "8081:8081"
-    environment:
-      - SERVER_PORT=8081
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres/store
-      - SPRING_H2_CONSOLE_ENABLED=TRUE
-      - SPRING_JPA_SHOW_SQL=TRUE
     depends_on:
       - postgres
     links:
