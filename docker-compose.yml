@@ -17,14 +17,17 @@ services:
       - ./src/main/resources/database/create.sql:/docker-entrypoint-initdb.d/create.sql
       - ./src/main/resources/database/insert.sql:/docker-entrypoint-initdb.d/insert.sql
 
-  store_thing:
+  thing:
     build:
       context: .
-      dockerfile: Dockerfile.store_thing
-    image: 'store_thing'
+      dockerfile: Dockerfile
+    image: 'thing'
     restart: always
     ports:
       - "8081:8081"
+    environment:
+      - SERVER_PORT=8081
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres/store
     depends_on:
       - postgres
     links:
