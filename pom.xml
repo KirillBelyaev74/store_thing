@@ -12,12 +12,12 @@
 
 	<groupId>ru.store</groupId>
 	<artifactId>store_thing</artifactId>
-	<version>1.0.0</version>
+	<version>0.0.1</version>
 	<name>store_thing</name>
 
 	<properties>
 		<java.version>11</java.version>
-		<kotlin.version>1.6.10</kotlin.version>
+		<kotlin.version>1.8.10</kotlin.version>
 		<gdbc.version>1.43.0</gdbc.version>
 	</properties>
 
@@ -115,7 +115,7 @@
 			<plugin>
 				<groupId>org.jetbrains.kotlin</groupId>
 				<artifactId>kotlin-maven-plugin</artifactId>
-				<version>1.6.10</version>
+				<version>${kotlin.version}</version>
 				<executions>
 					<execution>
 						<id>compile</id>
