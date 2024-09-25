@@ -3,7 +3,7 @@ services:
 
   postgres:
     build:
-      context: .
+      context: ..
       dockerfile: Dockerfile.postgres
     restart: always
     image: "postgres"
@@ -19,7 +19,7 @@ services:
 
   thing:
     build:
-      context: .
+      context: ..
       dockerfile: Dockerfile
     image: 'thing'
     restart: always

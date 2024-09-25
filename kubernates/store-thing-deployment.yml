@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: store-thing-deployment
+spec:
+  selector:
+    matchLabels:
+      applicationFullName: store-thing
+      application: thing
+  template:
+    metadata:
+      labels:
+        applicationFullName: store-thing
+        application: thing
+    spec:
+      containers:
+        - name: store-thing
+          image: store-thing
+          ports:
+            - containerPort: 8081
+          resources:
+            limits:
+              memory: "100Mi"
+              cpu: "500m"
